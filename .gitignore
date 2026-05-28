@@ -1,0 +1,24 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+storybook-static/
+
+# Vercel
+.vercel
+
+# Local dev
+.DS_Store
+*.log
+debug-storybook.log
+
+# Playwright / screenshots
+.playwright-mcp/
+
+# Claude local config
+.claude/settings.local.json
+
+# Env
+.env
+.env.local

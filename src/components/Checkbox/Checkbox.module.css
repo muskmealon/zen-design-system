@@ -1,0 +1,145 @@
+/* ── Root ─────────────────────────────────────────────────── */
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.rootDisabled {
+  cursor: not-allowed;
+}
+
+/* ── Hidden native input ──────────────────────────────────── */
+.hiddenInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Label row ────────────────────────────────────────────── */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  cursor: pointer;
+  user-select: none;
+}
+
+.rootDisabled .label {
+  cursor: not-allowed;
+}
+
+.labelText {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-action-a14-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-action-a14-line-height);
+  color: var(--color-text-primary);
+}
+
+.rootDisabled .labelText {
+  color: var(--color-text-disabled-bold);
+}
+
+/* ── Custom box ───────────────────────────────────────────── */
+.box {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--color-border-medium);
+  border-radius: var(--radius-4);
+  background-color: var(--color-surface-default);
+  color: var(--color-neutrals-white, #ffffff);
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Sizes */
+.box.sm {
+  width: var(--size-16);
+  height: var(--size-16);
+}
+
+.box.md {
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+/* Checked */
+.box.checked,
+.box.indeterminate {
+  background-color: var(--color-surface-brand-primary);
+  border-color: var(--color-border-brand-primary);
+}
+
+/* Hover (label hover → box hover) */
+.label:hover:not(.rootDisabled .label) .box:not(.boxDisabled) {
+  border-color: var(--color-border-brand-primary);
+}
+
+/* Focus ring via :focus-within on label */
+.hiddenInput:focus-visible + .box {
+  box-shadow: 0 0 0 3px var(--color-border-brand-primary-medium);
+  border-color: var(--color-border-brand-primary);
+}
+
+/* Disabled */
+.box.boxDisabled {
+  background-color: var(--color-surface-disabled-light);
+  border-color: var(--color-border-disabled);
+  color: var(--color-text-disabled-bold);
+}
+
+.box.checked.boxDisabled,
+.box.indeterminate.boxDisabled {
+  background-color: var(--color-surface-disabled-light);
+  border-color: var(--color-border-disabled);
+}
+
+/* ── Helper text ──────────────────────────────────────────── */
+.helperText {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-action-a12-size);
+  line-height: var(--font-action-a12-line-height);
+  color: var(--color-text-muted);
+  padding-left: calc(var(--size-20) + var(--space-8));
+}
+
+/* ── CheckboxGroup ────────────────────────────────────────── */
+.group {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.groupLabel {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-action-a12-size);
+  font-weight: var(--font-weight-semi-bold);
+  line-height: var(--font-action-a12-line-height);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.groupItems {
+  display: flex;
+  gap: var(--space-12);
+}
+
+.groupItems.vertical {
+  flex-direction: column;
+}
+
+.groupItems.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+}

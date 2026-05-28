@@ -1,0 +1,101 @@
+.text {
+  font-family: var(--font-family-primary);
+  margin: 0;
+}
+
+/* ── Variants ───────────────────────────────────────────────────────────── */
+.h1 {
+  font-size: var(--font-heading-h44-size);
+  line-height: var(--font-heading-h44-line-height);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--font-heading-h44-letter-spacing);
+}
+.h2 {
+  font-size: var(--font-heading-h36-size);
+  line-height: var(--font-heading-h36-line-height);
+  font-weight: var(--font-weight-bold);
+  letter-spacing: var(--font-heading-h36-letter-spacing);
+}
+.h3 {
+  font-size: var(--font-heading-h28-size);
+  line-height: var(--font-heading-h28-line-height);
+  font-weight: var(--font-weight-semi-bold);
+  letter-spacing: var(--font-heading-h28-letter-spacing);
+}
+.h4 {
+  font-size: var(--font-heading-h24-size);
+  line-height: var(--font-heading-h24-line-height);
+  font-weight: var(--font-weight-semi-bold);
+  letter-spacing: var(--font-heading-h24-letter-spacing);
+}
+.h5 {
+  font-size: var(--font-heading-h20-size);
+  line-height: var(--font-heading-h20-line-height);
+  font-weight: var(--font-weight-semi-bold);
+  letter-spacing: var(--font-heading-h20-letter-spacing);
+}
+.h6 {
+  font-size: var(--font-heading-h18-size);
+  line-height: var(--font-heading-h18-line-height);
+  font-weight: var(--font-weight-semi-bold);
+  letter-spacing: var(--font-heading-h18-letter-spacing);
+}
+.body1 {
+  font-size: var(--font-body-b16-size, 16px);
+  line-height: var(--font-body-b16-line-height, 24px);
+  font-weight: var(--font-weight-regular);
+}
+.body2 {
+  font-size: var(--font-body-b14-size, 14px);
+  line-height: var(--font-body-b14-line-height, 20px);
+  font-weight: var(--font-weight-regular);
+}
+.caption {
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: var(--font-weight-regular);
+}
+.overline {
+  font-size: 11px;
+  line-height: 16px;
+  font-weight: var(--font-weight-semi-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.label {
+  font-size: var(--font-action-a14-size);
+  line-height: var(--font-action-a14-line-height);
+  font-weight: var(--font-weight-medium);
+}
+.code {
+  font-family: "IBM Plex Mono", "Fira Code", monospace;
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: var(--font-weight-regular);
+}
+
+/* ── Colors ─────────────────────────────────────────────────────────────── */
+.colorPrimary   { color: var(--color-text-primary); }
+.colorSecondary { color: var(--color-text-secondary); }
+.colorTertiary  { color: var(--color-text-tertiary); }
+.colorMuted     { color: var(--color-text-muted); }
+.colorBrand     { color: var(--color-text-brand-primary); }
+.colorError     { color: var(--color-text-error-bold); }
+.colorSuccess   { color: var(--color-text-success-bold); }
+.colorWarning   { color: var(--color-text-warning-bold); }
+.colorInfo      { color: var(--color-text-info-bold); }
+.colorInverse   { color: var(--color-text-on-surface-bold); }
+.colorDisabled  { color: var(--color-text-disabled-bold); }
+
+/* ── Weight overrides ───────────────────────────────────────────────────── */
+.weightRegular  { font-weight: var(--font-weight-regular); }
+.weightMedium   { font-weight: var(--font-weight-medium); }
+.weightSemiBold { font-weight: var(--font-weight-semi-bold); }
+.weightBold     { font-weight: var(--font-weight-bold); }
+
+/* ── Utilities ──────────────────────────────────────────────────────────── */
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

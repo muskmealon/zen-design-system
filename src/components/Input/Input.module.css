@@ -1,0 +1,116 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.label {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-action-a12-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--font-action-a12-line-height);
+  color: var(--color-text-primary);
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.input {
+  width: 100%;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-default);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-8);
+  outline: none;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input::placeholder {
+  color: var(--color-text-muted);
+}
+
+.input:hover:not(:disabled):not(.errorInput) {
+  border-color: var(--color-border-semi-bold);
+}
+
+.input:focus:not(.errorInput) {
+  border-color: var(--color-border-brand-primary);
+  box-shadow: 0 0 0 3px var(--color-border-brand-primary-medium);
+}
+
+/* ── Sizes ─────────────────────────────────────────────────────────────── */
+.sm .input {
+  height: var(--size-32);
+  padding: 0 var(--space-10);
+  font-size: var(--font-action-a12-size);
+  line-height: var(--font-action-a12-line-height);
+}
+
+.md .input {
+  height: var(--size-40);
+  padding: 0 var(--space-12);
+  font-size: var(--font-action-a14-size);
+  line-height: var(--font-action-a14-line-height);
+}
+
+.lg .input {
+  height: var(--size-48);
+  padding: 0 var(--space-14);
+  font-size: var(--font-action-a16-size);
+  line-height: var(--font-action-a16-line-height);
+}
+
+/* With icons */
+.sm.hasLeadingIcon .input { padding-left: var(--space-32); }
+.sm.hasTrailingIcon .input { padding-right: var(--space-32); }
+.md.hasLeadingIcon .input { padding-left: var(--space-36); }
+.md.hasTrailingIcon .input { padding-right: var(--space-36); }
+.lg.hasLeadingIcon .input { padding-left: var(--space-40); }
+.lg.hasTrailingIcon .input { padding-right: var(--space-40); }
+
+/* ── States ─────────────────────────────────────────────────────────────── */
+.errorInput {
+  border-color: var(--color-border-error-bold) !important;
+}
+.errorInput:focus {
+  box-shadow: 0 0 0 3px var(--color-border-error-medium) !important;
+}
+
+.input:disabled {
+  background-color: var(--color-surface-disabled-light);
+  border-color: var(--color-border-disabled);
+  color: var(--color-text-disabled-bold);
+  cursor: not-allowed;
+}
+
+/* ── Icon slots ─────────────────────────────────────────────────────────── */
+.iconSlot {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.leadingIcon { left: var(--space-10); }
+.trailingIcon { right: var(--space-10); }
+
+/* ── Helper / error text ────────────────────────────────────────────────── */
+.helperText {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-caption-c11-size, 11px);
+  line-height: 16px;
+  color: var(--color-text-muted);
+}
+
+.errorText {
+  color: var(--color-text-error-bold);
+}

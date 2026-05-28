@@ -1,0 +1,124 @@
+/* ── Accordion root ────────────────────────────────────────── */
+.accordion {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-8);
+  background: var(--color-surface-default);
+  overflow: hidden;
+}
+
+/* ── Item ──────────────────────────────────────────────────── */
+.item {
+  border-bottom: 1px solid var(--color-border-medium);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+/* ── Size modifier ─────────────────────────────────────────── */
+.sm .trigger {
+  padding: var(--space-8) var(--space-12);
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.sm .panelInner {
+  padding: var(--space-4) var(--space-12) var(--space-12);
+}
+
+.md .trigger {
+  padding: var(--space-12) var(--space-16);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.md .panelInner {
+  padding: var(--space-4) var(--space-16) var(--space-16);
+}
+
+.lg .trigger {
+  padding: var(--space-16) var(--space-20);
+  font-size: 16px;
+  line-height: 26px;
+}
+
+.lg .panelInner {
+  padding: var(--space-4) var(--space-20) var(--space-20);
+}
+
+/* ── Trigger button ────────────────────────────────────────── */
+.trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-8);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+  text-align: left;
+  transition: background 150ms ease;
+}
+
+.trigger:hover:not(:disabled) {
+  background: var(--color-surface-subtle);
+}
+
+.trigger:focus-visible {
+  outline: 2px solid var(--color-border-brand-primary);
+  outline-offset: -2px;
+}
+
+.triggerTitle {
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── Chevron icon ──────────────────────────────────────────── */
+.chevron {
+  flex-shrink: 0;
+  color: var(--color-text-secondary);
+  transition: transform 250ms ease;
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/* ── Content panel ─────────────────────────────────────────── */
+.panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 280ms ease;
+}
+
+.panelOpen {
+  max-height: 1000px;
+}
+
+.panelInner {
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  line-height: 22px;
+  color: var(--color-text-secondary);
+}
+
+/* ── Disabled state ────────────────────────────────────────── */
+.disabled .trigger {
+  cursor: not-allowed;
+  color: var(--color-text-disabled-bold);
+}
+
+.disabled .chevron {
+  color: var(--color-text-disabled-bold);
+}
+
+.disabled .trigger:hover {
+  background: transparent;
+}

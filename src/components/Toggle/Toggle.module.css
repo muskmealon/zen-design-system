@@ -1,0 +1,128 @@
+/* ── Root ─────────────────────────────────────────────────── */
+.root {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.rootDisabled {
+  cursor: not-allowed;
+}
+
+/* ── Label ────────────────────────────────────────────────── */
+.label {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-action-a14-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-action-a14-line-height);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  user-select: none;
+}
+
+.labelDisabled {
+  color: var(--color-text-disabled-bold);
+  cursor: not-allowed;
+}
+
+/* ── Track (the button) ───────────────────────────────────── */
+.track {
+  position: relative;
+  border: none;
+  border-radius: var(--radius-rounded);
+  cursor: pointer;
+  padding: 0;
+  flex-shrink: 0;
+  transition: background-color 0.2s ease;
+  outline: none;
+}
+
+.track:focus-visible {
+  box-shadow: 0 0 0 3px var(--color-border-brand-primary-medium);
+}
+
+/* Track sizes: sm=28×16, md=36×20, lg=44×24 */
+.track.sm {
+  width: var(--size-28);
+  height: var(--size-16);
+}
+
+.track.md {
+  width: var(--size-36);
+  height: var(--size-20);
+}
+
+.track.lg {
+  width: var(--size-44);
+  height: var(--size-24);
+}
+
+/* Track color states */
+.trackOff {
+  background-color: var(--color-surface-medium);
+}
+
+.trackOn {
+  background-color: var(--color-surface-brand-primary);
+}
+
+/* Hover */
+.track:hover:not(:disabled).trackOff {
+  background-color: var(--color-border-semi-bold);
+}
+
+.track:hover:not(:disabled).trackOn {
+  background-color: var(--color-surface-brand-primary-extra-bold);
+}
+
+/* Disabled track */
+.trackDisabled {
+  cursor: not-allowed;
+  background-color: var(--color-surface-disabled-light) !important;
+}
+
+/* ── Thumb ────────────────────────────────────────────────── */
+.thumb {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  border-radius: var(--radius-rounded);
+  background-color: var(--color-surface-default);
+  transition: transform 0.2s ease;
+  box-shadow: 0 1px 3px var(--color-alpha-dark-25, rgba(0, 0, 0, 0.15));
+}
+
+/* Thumb sizes */
+.smThumb {
+  width: var(--size-12);
+  height: var(--size-12);
+}
+
+.mdThumb {
+  width: var(--size-16);
+  height: var(--size-16);
+}
+
+.lgThumb {
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+/* Thumb ON positions: track-width - thumb-width - (2 * offset) */
+/* sm: 28 - 12 - 4 = 12px, md: 36 - 16 - 4 = 16px, lg: 44 - 20 - 4 = 20px */
+.smThumb.thumbOn {
+  transform: translateX(var(--size-12));
+}
+
+.mdThumb.thumbOn {
+  transform: translateX(var(--size-16));
+}
+
+.lgThumb.thumbOn {
+  transform: translateX(var(--size-20));
+}
+
+.thumbDisabled {
+  background-color: var(--color-surface-disabled-medium);
+  box-shadow: none;
+}

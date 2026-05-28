@@ -1,0 +1,154 @@
+/* ── Root ─────────────────────────────────────────────────── */
+.root {
+  display: inline-flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.rootDisabled {
+  cursor: not-allowed;
+}
+
+/* ── Hidden native input ──────────────────────────────────── */
+.hiddenInput {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Label row ────────────────────────────────────────────── */
+.label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-8);
+  cursor: pointer;
+  user-select: none;
+}
+
+.rootDisabled .label {
+  cursor: not-allowed;
+}
+
+.labelText {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-action-a14-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-action-a14-line-height);
+  color: var(--color-text-primary);
+}
+
+.rootDisabled .labelText {
+  color: var(--color-text-disabled-bold);
+}
+
+/* ── Custom circle ────────────────────────────────────────── */
+.circle {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.5px solid var(--color-border-medium);
+  border-radius: var(--radius-rounded);
+  background-color: var(--color-surface-default);
+  transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+/* Sizes */
+.circle.sm {
+  width: var(--size-16);
+  height: var(--size-16);
+}
+
+.circle.md {
+  width: var(--size-20);
+  height: var(--size-20);
+}
+
+/* Selected */
+.circle.selected {
+  border-color: var(--color-border-brand-primary);
+  background-color: var(--color-surface-default);
+}
+
+/* Hover */
+.label:hover:not(.rootDisabled .label) .circle:not(.circleDisabled) {
+  border-color: var(--color-border-brand-primary);
+}
+
+/* Focus ring */
+.hiddenInput:focus-visible + .circle {
+  box-shadow: 0 0 0 3px var(--color-border-brand-primary-medium);
+  border-color: var(--color-border-brand-primary);
+}
+
+/* Disabled */
+.circle.circleDisabled {
+  background-color: var(--color-surface-disabled-light);
+  border-color: var(--color-border-disabled-medium);
+}
+
+.circle.selected.circleDisabled {
+  border-color: var(--color-border-disabled-medium);
+}
+
+/* ── Inner dot ────────────────────────────────────────────── */
+.dot {
+  border-radius: var(--radius-rounded);
+  background-color: var(--color-surface-brand-primary);
+  flex-shrink: 0;
+}
+
+/* sm dot: 6px */
+.smDot {
+  width: var(--size-6);
+  height: var(--size-6);
+}
+
+/* md dot: 8px */
+.mdDot {
+  width: var(--size-8);
+  height: var(--size-8);
+}
+
+.dotDisabled {
+  background-color: var(--color-surface-disabled);
+}
+
+/* ── RadioGroup ───────────────────────────────────────────── */
+.group {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.groupLabel {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-action-a12-size);
+  font-weight: var(--font-weight-semi-bold);
+  line-height: var(--font-action-a12-line-height);
+  color: var(--color-text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.groupItems {
+  display: flex;
+  gap: var(--space-12);
+}
+
+.groupItems.vertical {
+  flex-direction: column;
+}
+
+.groupItems.horizontal {
+  flex-direction: row;
+  flex-wrap: wrap;
+}

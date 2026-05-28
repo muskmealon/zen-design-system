@@ -1,0 +1,104 @@
+/* ── Base alert ────────────────────────────────────────────── */
+.alert {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--space-10);
+  padding: var(--space-12) var(--space-16);
+  border-radius: var(--radius-8);
+  border: 1px solid;
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  line-height: 22px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* ── Icon slot ─────────────────────────────────────────────── */
+.iconSlot {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding-top: 3px;
+}
+
+/* ── Body ──────────────────────────────────────────────────── */
+.body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.title {
+  margin: 0;
+  font-weight: var(--font-weight-semi-bold);
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.description {
+  font-weight: var(--font-weight-regular);
+  color: inherit;
+  opacity: 0.85;
+}
+
+.action {
+  margin-top: var(--space-8);
+}
+
+/* ── Dismiss button ────────────────────────────────────────── */
+.dismissButton {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: var(--radius-4);
+  padding: var(--space-2);
+  color: inherit;
+  opacity: 0.6;
+  transition: opacity 150ms ease, background 150ms ease;
+  margin-top: 1px;
+}
+
+.dismissButton:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.dismissButton:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+}
+
+/* ── Variant: info ─────────────────────────────────────────── */
+.info {
+  background: var(--color-surface-info-subtle);
+  border-color: var(--color-border-info-medium);
+  color: var(--color-text-info-bold);
+}
+
+/* ── Variant: success ──────────────────────────────────────── */
+.success {
+  background: var(--color-surface-success-subtle);
+  border-color: var(--color-border-success-medium);
+  color: var(--color-text-success-bold);
+}
+
+/* ── Variant: warning ──────────────────────────────────────── */
+.warning {
+  background: var(--color-surface-warning-subtle);
+  border-color: var(--color-border-warning-medium);
+  color: var(--color-text-warning-bold);
+}
+
+/* ── Variant: error ────────────────────────────────────────── */
+.error {
+  background: var(--color-surface-error-subtle);
+  border-color: var(--color-border-error-medium);
+  color: var(--color-text-error-bold);
+}

@@ -1,0 +1,120 @@
+/* ── Outer wrapper ────────────────────────────────────────── */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+/* ── Label ────────────────────────────────────────────────── */
+.label {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-action-a12-size);
+  font-weight: var(--font-weight-medium);
+  line-height: var(--font-action-a12-line-height);
+  color: var(--color-text-primary);
+}
+
+/* ── Select container (positions icon) ───────────────────── */
+.selectWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+/* ── Native select ────────────────────────────────────────── */
+.select {
+  width: 100%;
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: var(--font-family-primary);
+  font-weight: var(--font-weight-regular);
+  color: var(--color-text-primary);
+  background-color: var(--color-surface-default);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-8);
+  outline: none;
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.select:hover:not(:disabled):not(.selectError) {
+  border-color: var(--color-border-semi-bold);
+}
+
+.select:focus:not(.selectError) {
+  border-color: var(--color-border-brand-primary);
+  box-shadow: 0 0 0 3px var(--color-border-brand-primary-medium);
+}
+
+/* ── Sizes ────────────────────────────────────────────────── */
+/* sm = 32px height */
+.wrapper.sm .select {
+  height: var(--size-32);
+  padding: 0 var(--space-32) 0 var(--space-10);
+  font-size: var(--font-action-a12-size);
+  line-height: var(--font-action-a12-line-height);
+}
+
+/* md = 40px height */
+.wrapper.md .select {
+  height: var(--size-40);
+  padding: 0 var(--space-36) 0 var(--space-12);
+  font-size: var(--font-action-a14-size);
+  line-height: var(--font-action-a14-line-height);
+}
+
+/* lg = 48px height */
+.wrapper.lg .select {
+  height: var(--size-48);
+  padding: 0 var(--space-40) 0 var(--space-14);
+  font-size: var(--font-action-a16-size);
+  line-height: var(--font-action-a16-line-height);
+}
+
+/* ── Error state ──────────────────────────────────────────── */
+.select.selectError {
+  border-color: var(--color-border-error-bold);
+}
+
+.select.selectError:focus {
+  box-shadow: 0 0 0 3px var(--color-border-error-medium);
+}
+
+/* ── Disabled state ───────────────────────────────────────── */
+.select:disabled,
+.select.selectDisabled {
+  background-color: var(--color-surface-disabled-light);
+  border-color: var(--color-border-disabled);
+  color: var(--color-text-disabled-bold);
+  cursor: not-allowed;
+}
+
+/* ── Chevron icon ─────────────────────────────────────────── */
+.icon {
+  position: absolute;
+  right: var(--space-10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  pointer-events: none;
+}
+
+.select:disabled ~ .icon,
+.select.selectDisabled ~ .icon {
+  color: var(--color-text-disabled-bold);
+}
+
+/* ── Helper / error text ──────────────────────────────────── */
+.helperText {
+  font-family: var(--font-family-primary);
+  font-size: var(--font-action-a12-size);
+  line-height: var(--font-action-a12-line-height);
+  color: var(--color-text-muted);
+}
+
+.helperTextError {
+  color: var(--color-text-error-bold);
+}

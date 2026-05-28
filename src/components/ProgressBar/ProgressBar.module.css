@@ -1,0 +1,131 @@
+/* ── ProgressBar ────────────────────────────────────────────── */
+
+@keyframes indeterminate {
+  0% {
+    left: -45%;
+    width: 45%;
+  }
+  60% {
+    left: 100%;
+    width: 100%;
+  }
+  100% {
+    left: 100%;
+    width: 0%;
+  }
+}
+
+@keyframes stripes {
+  from {
+    background-position: 28px 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+
+/* ── Wrapper & label row ────────────────────────────────────── */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: 100%;
+  font-family: var(--font-family-primary);
+}
+
+.labelRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.labelText {
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.percentText {
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-regular);
+  white-space: nowrap;
+}
+
+/* ── Track ──────────────────────────────────────────────────── */
+.track {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9999px;
+  background-color: var(--color-surface-medium);
+}
+
+/* Size variants */
+.sm {
+  height: var(--size-4);
+}
+
+.md {
+  height: var(--size-8);
+}
+
+.lg {
+  height: var(--size-12);
+}
+
+/* ── Fill ───────────────────────────────────────────────────── */
+.fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+/* Variant colors */
+.default {
+  background-color: var(--color-surface-brand-primary);
+}
+
+.brand {
+  background-color: var(--color-surface-brand-primary);
+}
+
+.success {
+  background-color: var(--color-surface-success-bold);
+}
+
+.warning {
+  background-color: var(--color-surface-warning-bold);
+}
+
+.error {
+  background-color: var(--color-surface-error-bold);
+}
+
+/* ── Animated stripes ───────────────────────────────────────── */
+.animated {
+  background-image: linear-gradient(
+    45deg,
+    rgba(255, 255, 255, 0.2) 25%,
+    transparent 25%,
+    transparent 50%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.2) 75%,
+    transparent 75%,
+    transparent
+  );
+  background-size: 28px 28px;
+  animation: stripes 0.8s linear infinite;
+}
+
+/* ── Indeterminate ──────────────────────────────────────────── */
+.indeterminate {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 45%;
+  animation: indeterminate 1.6s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+}

@@ -1,0 +1,116 @@
+/* ── Wrapper ────────────────────────────────────────────────── */
+.wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+/* ── Trigger ────────────────────────────────────────────────── */
+.trigger {
+  display: inline-flex;
+  cursor: pointer;
+}
+
+/* ── Panel ──────────────────────────────────────────────────── */
+.panel {
+  position: absolute;
+  top: calc(100% + var(--space-4));
+  left: 0;
+  z-index: 50;
+  min-width: 180px;
+  background: var(--color-surface-default);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-8);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  padding: var(--space-4) 0;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px);
+  transition: opacity 150ms ease, transform 150ms ease;
+}
+
+.panelRight {
+  left: auto;
+  right: 0;
+}
+
+.panelVisible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+/* ── Item ───────────────────────────────────────────────────── */
+.item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--space-8);
+  padding: var(--space-8) var(--space-12);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-family-primary);
+  font-size: 14px;
+  font-weight: var(--font-weight-regular);
+  line-height: 22px;
+  color: var(--color-text-primary);
+  text-align: left;
+  transition: background 120ms ease;
+}
+
+.item:hover:not(:disabled) {
+  background: var(--color-surface-subtle);
+}
+
+.item:focus-visible {
+  outline: 2px solid var(--color-border-brand-primary);
+  outline-offset: -2px;
+}
+
+/* ── Item icon ──────────────────────────────────────────────── */
+.itemIcon {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  color: var(--color-text-secondary);
+}
+
+/* ── Item label ─────────────────────────────────────────────── */
+.itemLabel {
+  flex: 1;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ── Danger variant ─────────────────────────────────────────── */
+.itemDanger {
+  color: var(--color-text-error-bold);
+}
+
+.itemDanger .itemIcon {
+  color: var(--color-text-error-bold);
+}
+
+.itemDanger:hover:not(:disabled) {
+  background: var(--color-surface-error-subtle);
+}
+
+/* ── Disabled state ─────────────────────────────────────────── */
+.itemDisabled {
+  color: var(--color-text-disabled-bold);
+  cursor: not-allowed;
+}
+
+.itemDisabled .itemIcon {
+  color: var(--color-text-disabled-bold);
+}
+
+/* ── Divider ────────────────────────────────────────────────── */
+.divider {
+  height: 1px;
+  background: var(--color-border-light);
+  margin: var(--space-4) 0;
+}

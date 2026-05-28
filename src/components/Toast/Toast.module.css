@@ -1,0 +1,148 @@
+/* ─── Slide-in animation ───────────────────────────────────────────────────── */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* ─── Provider container ───────────────────────────────────────────────────── */
+.container {
+  position: fixed;
+  top: var(--space-20);
+  right: var(--space-20);
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  pointer-events: none;
+}
+
+/* ─── Toast base ───────────────────────────────────────────────────────────── */
+.toast {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: var(--space-12);
+  max-width: 400px;
+  width: 400px;
+  padding: var(--space-16);
+  border-radius: var(--radius-8);
+  border: 1px solid;
+  box-shadow: 0 4px 16px var(--color-border-overlay);
+  animation: slideIn 0.2s ease forwards;
+  pointer-events: all;
+  font-family: var(--font-family-primary);
+}
+
+/* ─── Variant: info ────────────────────────────────────────────────────────── */
+.info {
+  background-color: var(--color-surface-info-subtle);
+  border-color: var(--color-border-info-medium);
+  color: var(--color-text-info-bold);
+}
+
+/* ─── Variant: success ─────────────────────────────────────────────────────── */
+.success {
+  background-color: var(--color-surface-success-subtle);
+  border-color: var(--color-border-success-medium);
+  color: var(--color-text-success-bold);
+}
+
+/* ─── Variant: warning ─────────────────────────────────────────────────────── */
+.warning {
+  background-color: var(--color-surface-warning-subtle);
+  border-color: var(--color-border-warning-medium);
+  color: var(--color-text-warning-bold);
+}
+
+/* ─── Variant: error ───────────────────────────────────────────────────────── */
+.error {
+  background-color: var(--color-surface-error-subtle);
+  border-color: var(--color-border-error-medium);
+  color: var(--color-text-error-bold);
+}
+
+/* ─── Icon ─────────────────────────────────────────────────────────────────── */
+.icon {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ─── Body ─────────────────────────────────────────────────────────────────── */
+.body {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-action-a14-size);
+  font-weight: var(--font-weight-semi-bold);
+  line-height: var(--font-action-a14-line-height);
+}
+
+.description {
+  margin: 0;
+  font-size: var(--font-action-a12-size);
+  line-height: var(--font-action-a12-line-height);
+  opacity: 0.85;
+}
+
+/* ─── Action button ────────────────────────────────────────────────────────── */
+.actionButton {
+  margin-top: var(--space-8);
+  padding: 0;
+  background: none;
+  border: none;
+  font-family: var(--font-family-primary);
+  font-size: var(--font-action-a12-size);
+  font-weight: var(--font-weight-semi-bold);
+  line-height: var(--font-action-a12-line-height);
+  color: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  outline: none;
+}
+
+.actionButton:focus-visible {
+  border-radius: var(--radius-2);
+  box-shadow: 0 0 0 2px currentColor;
+}
+
+/* ─── Dismiss button ───────────────────────────────────────────────────────── */
+.dismissButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--size-20);
+  height: var(--size-20);
+  padding: 0;
+  background: none;
+  border: none;
+  color: inherit;
+  opacity: 0.6;
+  cursor: pointer;
+  border-radius: var(--radius-4);
+  transition: opacity 0.15s ease;
+  outline: none;
+}
+
+.dismissButton:hover {
+  opacity: 1;
+}
+
+.dismissButton:focus-visible {
+  box-shadow: 0 0 0 2px currentColor;
+}
