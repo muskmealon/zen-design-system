@@ -1,102 +1,64 @@
+import { type ReactNode } from 'react';
 import {
-  createContext,
-  useContext,
-  useId,
-  type ReactNode,
-  type ChangeEvent,
-} from 'react';
+  Radio as AriaRadio,
+  RadioGroup as AriaRadioGroup,
+} from 'react-aria-components';
 import styles from './Radio.module.css';
 
 export type RadioSize = 'sm' | 'md';
 
-/* ── Context for RadioGroup ───────────────────────────────── */
-
-interface RadioGroupContextValue {
-  groupValue?: string;
-  onChange?: (value: string) => void;
-  name?: string;
-}
-
-const RadioGroupContext = createContext<RadioGroupContextValue>({});
-
-/* ── Radio ────────────────────────────────────────────────── */
-
 export interface RadioProps {
   value: string;
-  checked?: boolean;
-  onChange?: (value: string) => void;
   label?: string;
   disabled?: boolean;
   size?: RadioSize;
   id?: string;
 }
 
-export function Radio({
-  value,
-  checked: checkedProp,
-  onChange: onChangeProp,
-  label,
-  disabled = false,
-  size = 'md',
-  id: idProp,
-}: RadioProps) {
-  const generatedId = useId();
-  const id = idProp ?? generatedId;
-
-  const ctx = useContext(RadioGroupContext);
-
-  const isChecked =
-    checkedProp !== undefined
-      ? checkedProp
-      : ctx.groupValue !== undefined
-      ? ctx.groupValue === value
-      : false;
-
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    if (e.target.checked) {
-      onChangeProp?.(value);
-      ctx.onChange?.(value);
-    }
-  }
-
-  const circleClasses = [
-    styles.circle,
-    styles[size],
-    isChecked ? styles.selected : '',
-    disabled ? styles.circleDisabled : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
-
+export function Radio({ value, label, disabled = false, size = 'md', id }: RadioProps) {
   return (
-    <div className={`${styles.root} ${disabled ? styles.rootDisabled : ''}`}>
-      <label className={styles.label} htmlFor={id}>
-        <input
-          id={id}
-          type="radio"
-          className={styles.hiddenInput}
-          value={value}
-          checked={isChecked}
-          onChange={handleChange}
-          disabled={disabled}
-          name={ctx.name}
-        />
-        <span className={circleClasses} aria-hidden="true">
-          {isChecked && !disabled && <span className={`${styles.dot} ${styles[size + 'Dot']}`} />}
-          {isChecked && disabled && <span className={`${styles.dot} ${styles[size + 'Dot']} ${styles.dotDisabled}`} />}
+    <AriaRadio
+      id={id}
+      value={value}
+      isDisabled={disabled}
+      className={({ isDisabled }) =>
+        [styles.root, isDisabled && styles.rootDisabled].filter(Boolean).join(' ')
+      }
+    >
+      {({ isSelected, isDisabled: isDis, isFocusVisible }) => (
+        <span className={styles.label}>
+          <span
+            className={[
+              styles.circle,
+              styles[size],
+              isSelected ? styles.selected : '',
+              isDis ? styles.circleDisabled : '',
+              isFocusVisible ? styles.circleFocused : '',
+            ].filter(Boolean).join(' ')}
+            aria-hidden="true"
+          >
+            {isSelected && (
+              <span
+                className={[
+                  styles.dot,
+                  styles[`${size}Dot`],
+                  isDis ? styles.dotDisabled : '',
+                ].filter(Boolean).join(' ')}
+              />
+            )}
+          </span>
+          {label && <span className={styles.labelText}>{label}</span>}
         </span>
-        {label && <span className={styles.labelText}>{label}</span>}
-      </label>
-    </div>
+      )}
+    </AriaRadio>
   );
 }
 
 Radio.displayName = 'Radio';
 
-/* ── RadioGroup ───────────────────────────────────────────── */
-
 export interface RadioGroupProps {
   value?: string;
+  defaultValue?: string;
   onChange?: (value: string) => void;
   label?: string;
   orientation?: 'vertical' | 'horizontal';
@@ -106,28 +68,30 @@ export interface RadioGroupProps {
 
 export function RadioGroup({
   value,
+  defaultValue,
   onChange,
   label,
   orientation = 'vertical',
   children,
   name,
 }: RadioGroupProps) {
-  const generatedName = useId();
-  const groupName = name ?? generatedName;
-
   return (
-    <RadioGroupContext.Provider value={{ groupValue: value, onChange, name: groupName }}>
-      <fieldset className={styles.group} role="radiogroup">
-        {label && <legend className={styles.groupLabel}>{label}</legend>}
-        <div
-          className={`${styles.groupItems} ${
-            orientation === 'horizontal' ? styles.horizontal : styles.vertical
-          }`}
-        >
-          {children}
-        </div>
-      </fieldset>
-    </RadioGroupContext.Provider>
+    <AriaRadioGroup
+      value={value}
+      defaultValue={defaultValue}
+      onChange={onChange}
+      name={name}
+      className={styles.group}
+    >
+      {label && <span className={styles.groupLabel}>{label}</span>}
+      <div
+        className={`${styles.groupItems} ${
+          orientation === 'horizontal' ? styles.horizontal : styles.vertical
+        }`}
+      >
+        {children}
+      </div>
+    </AriaRadioGroup>
   );
 }
 

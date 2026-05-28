@@ -1,13 +1,13 @@
+import { type ReactNode } from 'react';
 import {
-  useState,
-  useEffect,
-  useRef,
-  useCallback,
-  type ReactNode,
-} from 'react';
+  MenuTrigger,
+  Menu,
+  MenuItem,
+  Popover,
+  Button as AriaButton,
+  Separator,
+} from 'react-aria-components';
 import styles from './ActionMenu.module.css';
-
-// ─── Types ────────────────────────────────────────────────────────────────────
 
 export type ActionMenuItemVariant = 'default' | 'danger';
 
@@ -28,15 +28,6 @@ export interface ActionMenuItemProps {
   variant?: ActionMenuItemVariant;
 }
 
-export interface ActionMenuProps {
-  trigger: ReactNode;
-  items: ActionMenuItemDef[];
-  align?: 'left' | 'right';
-  className?: string;
-}
-
-// ─── ActionMenuItem (standalone / composable) ─────────────────────────────────
-
 export function ActionMenuItem({
   icon,
   label,
@@ -44,110 +35,57 @@ export function ActionMenuItem({
   disabled = false,
   variant = 'default',
 }: ActionMenuItemProps) {
-  const itemClass = [
-    styles.item,
-    variant === 'danger' && styles.itemDanger,
-    disabled && styles.itemDisabled,
-  ]
-    .filter(Boolean)
-    .join(' ');
-
   return (
-    <button
-      type="button"
-      className={itemClass}
-      onClick={disabled ? undefined : onClick}
-      disabled={disabled}
-      role="menuitem"
+    <MenuItem
+      onAction={disabled ? undefined : onClick}
+      isDisabled={disabled}
+      className={({ isDisabled, isFocused }) =>
+        [
+          styles.item,
+          variant === 'danger' ? styles.itemDanger : '',
+          isDisabled ? styles.itemDisabled : '',
+          isFocused ? styles.itemFocused : '',
+        ].filter(Boolean).join(' ')
+      }
     >
       {icon && <span className={styles.itemIcon}>{icon}</span>}
       <span className={styles.itemLabel}>{label}</span>
-    </button>
+    </MenuItem>
   );
 }
 
-// ─── ActionMenu ───────────────────────────────────────────────────────────────
+export interface ActionMenuProps {
+  trigger: ReactNode;
+  items: ActionMenuItemDef[];
+  align?: 'left' | 'right';
+  className?: string;
+}
 
-export function ActionMenu({
-  trigger,
-  items,
-  align = 'left',
-  className,
-}: ActionMenuProps) {
-  const [open, setOpen] = useState(false);
-  const wrapperRef = useRef<HTMLDivElement>(null);
-
-  const close = useCallback(() => setOpen(false), []);
-
-  // Click-outside detection
-  useEffect(() => {
-    if (!open) return;
-
-    const handleMouseDown = (e: MouseEvent) => {
-      if (wrapperRef.current && !wrapperRef.current.contains(e.target as Node)) {
-        close();
-      }
-    };
-
-    document.addEventListener('mousedown', handleMouseDown);
-    return () => document.removeEventListener('mousedown', handleMouseDown);
-  }, [open, close]);
-
-  // Close on Escape
-  useEffect(() => {
-    if (!open) return;
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') close();
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [open, close]);
-
-  const panelClass = [
-    styles.panel,
-    align === 'right' && styles.panelRight,
-    open && styles.panelVisible,
-  ]
-    .filter(Boolean)
-    .join(' ');
-
+export function ActionMenu({ trigger, items, align = 'left', className }: ActionMenuProps) {
   return (
-    <div
-      ref={wrapperRef}
-      className={[styles.wrapper, className].filter(Boolean).join(' ')}
-    >
-      {/* Trigger */}
-      <div
-        className={styles.trigger}
-        onClick={() => setOpen((prev) => !prev)}
-        aria-haspopup="menu"
-        aria-expanded={open}
-      >
-        {trigger}
-      </div>
-
-      {/* Menu panel */}
-      <div
-        className={panelClass}
-        role="menu"
-        aria-hidden={!open}
-      >
-        {items.map((item, index) => (
-          <div key={index}>
-            {item.dividerAbove && <div className={styles.divider} role="separator" />}
-            <ActionMenuItem
-              icon={item.icon}
-              label={item.label}
-              onClick={() => {
-                item.onClick?.();
-                close();
-              }}
-              disabled={item.disabled}
-              variant={item.variant}
-            />
-          </div>
-        ))}
-      </div>
+    <div className={[styles.wrapper, className].filter(Boolean).join(' ')}>
+      <MenuTrigger>
+        <AriaButton className={styles.trigger}>{trigger}</AriaButton>
+        <Popover
+          placement={align === 'right' ? 'bottom end' : 'bottom start'}
+          className={styles.panel}
+        >
+          <Menu className={styles.menuList}>
+            {items.map((item, index) => (
+              <div key={index}>
+                {item.dividerAbove && <Separator className={styles.divider} />}
+                <ActionMenuItem
+                  icon={item.icon}
+                  label={item.label}
+                  onClick={item.onClick}
+                  disabled={item.disabled}
+                  variant={item.variant}
+                />
+              </div>
+            ))}
+          </Menu>
+        </Popover>
+      </MenuTrigger>
     </div>
   );
 }

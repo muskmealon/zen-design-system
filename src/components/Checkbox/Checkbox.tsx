@@ -1,11 +1,8 @@
+import { type ReactNode } from 'react';
 import {
-  useRef,
-  useEffect,
-  useId,
-  useState,
-  type ReactNode,
-  type ChangeEvent,
-} from 'react';
+  Checkbox as AriaCheckbox,
+  CheckboxGroup as AriaCheckboxGroup,
+} from 'react-aria-components';
 import { Check, Minus } from 'lucide-react';
 import styles from './Checkbox.module.css';
 
@@ -32,62 +29,45 @@ export function Checkbox({
   disabled = false,
   indeterminate = false,
   size = 'md',
-  id: idProp,
+  id,
 }: CheckboxProps) {
-  const generatedId = useId();
-  const id = idProp ?? generatedId;
-  const inputRef = useRef<HTMLInputElement>(null);
-
-  const isControlled = checked !== undefined;
-  const [internalChecked, setInternalChecked] = useState(defaultChecked ?? false);
-  const isChecked = isControlled ? checked : internalChecked;
-
-  useEffect(() => {
-    if (inputRef.current) {
-      inputRef.current.indeterminate = indeterminate;
-    }
-  }, [indeterminate]);
-
-  function handleChange(e: ChangeEvent<HTMLInputElement>) {
-    if (!isControlled) {
-      setInternalChecked(e.target.checked);
-    }
-    onChange?.(e.target.checked);
-  }
-
-  const boxClasses = [
-    styles.box,
-    styles[size],
-    isChecked && !indeterminate ? styles.checked : '',
-    indeterminate ? styles.indeterminate : '',
-    disabled ? styles.boxDisabled : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
+  const iconSize = size === 'sm' ? 10 : 12;
 
   return (
-    <div className={`${styles.root} ${disabled ? styles.rootDisabled : ''}`}>
-      <label className={styles.label} htmlFor={id}>
-        <input
-          ref={inputRef}
-          id={id}
-          type="checkbox"
-          className={styles.hiddenInput}
-          checked={isControlled ? checked : internalChecked}
-          onChange={handleChange}
-          disabled={disabled}
-          aria-describedby={helperText ? `${id}-helper` : undefined}
-        />
-        <span className={boxClasses} aria-hidden="true">
-          {indeterminate && <Minus size={size === 'sm' ? 10 : 12} strokeWidth={3} />}
-          {!indeterminate && isChecked && (
-            <Check size={size === 'sm' ? 10 : 12} strokeWidth={3} />
-          )}
-        </span>
-        {label && <span className={styles.labelText}>{label}</span>}
-      </label>
+    <div className={styles.root}>
+      <AriaCheckbox
+        id={id}
+        isSelected={checked}
+        defaultSelected={defaultChecked}
+        onChange={onChange}
+        isDisabled={disabled}
+        isIndeterminate={indeterminate}
+        className={({ isDisabled }) =>
+          [styles.label, isDisabled && styles.rootDisabled].filter(Boolean).join(' ')
+        }
+      >
+        {({ isSelected, isIndeterminate: isIndet, isDisabled: isDis, isFocusVisible }) => (
+          <>
+            <span
+              className={[
+                styles.box,
+                styles[size],
+                isSelected && !isIndet ? styles.checked : '',
+                isIndet ? styles.indeterminate : '',
+                isDis ? styles.boxDisabled : '',
+                isFocusVisible ? styles.boxFocused : '',
+              ].filter(Boolean).join(' ')}
+              aria-hidden="true"
+            >
+              {isIndet && <Minus size={iconSize} strokeWidth={3} />}
+              {!isIndet && isSelected && <Check size={iconSize} strokeWidth={3} />}
+            </span>
+            {label && <span className={styles.labelText}>{label}</span>}
+          </>
+        )}
+      </AriaCheckbox>
       {helperText && (
-        <span id={`${id}-helper`} className={styles.helperText}>
+        <span id={id ? `${id}-helper` : undefined} className={styles.helperText}>
           {helperText}
         </span>
       )}
@@ -97,22 +77,16 @@ export function Checkbox({
 
 Checkbox.displayName = 'Checkbox';
 
-/* ── CheckboxGroup ─────────────────────────────────────────── */
-
 export interface CheckboxGroupProps {
   label?: string;
   children: ReactNode;
   orientation?: 'vertical' | 'horizontal';
 }
 
-export function CheckboxGroup({
-  label,
-  children,
-  orientation = 'vertical',
-}: CheckboxGroupProps) {
+export function CheckboxGroup({ label, children, orientation = 'vertical' }: CheckboxGroupProps) {
   return (
-    <fieldset className={styles.group}>
-      {label && <legend className={styles.groupLabel}>{label}</legend>}
+    <AriaCheckboxGroup className={styles.group}>
+      {label && <span className={styles.groupLabel}>{label}</span>}
       <div
         className={`${styles.groupItems} ${
           orientation === 'horizontal' ? styles.horizontal : styles.vertical
@@ -120,7 +94,7 @@ export function CheckboxGroup({
       >
         {children}
       </div>
-    </fieldset>
+    </AriaCheckboxGroup>
   );
 }
 

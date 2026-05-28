@@ -82,7 +82,8 @@
 }
 
 /* Focus ring */
-.hiddenInput:focus-visible + .circle {
+.hiddenInput:focus-visible + .circle,
+.circle.circleFocused {
   box-shadow: 0 0 0 3px var(--color-border-brand-primary-medium);
   border-color: var(--color-border-brand-primary);
 }

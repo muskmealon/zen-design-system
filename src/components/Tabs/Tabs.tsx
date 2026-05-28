@@ -1,34 +1,13 @@
+import { type ReactNode } from 'react';
 import {
-  createContext,
-  useContext,
-  useState,
-  useId,
-  type ReactNode,
-} from 'react';
+  Tabs as AriaTabs,
+  TabList as AriaTabList,
+  Tab as AriaTab,
+  TabPanel as AriaTabPanel,
+} from 'react-aria-components';
 import styles from './Tabs.module.css';
 
-// ─── Context ──────────────────────────────────────────────────────────────────
-
 type TabsVariant = 'line' | 'pill';
-
-interface TabsContextValue {
-  activeTab: string;
-  setActiveTab: (value: string) => void;
-  variant: TabsVariant;
-  baseId: string;
-}
-
-const TabsContext = createContext<TabsContextValue | null>(null);
-
-function useTabsContext(): TabsContextValue {
-  const ctx = useContext(TabsContext);
-  if (!ctx) {
-    throw new Error('Tabs sub-components must be used within a <Tabs> component.');
-  }
-  return ctx;
-}
-
-// ─── Tabs ─────────────────────────────────────────────────────────────────────
 
 export interface TabsProps {
   defaultValue?: string;
@@ -38,92 +17,65 @@ export interface TabsProps {
   variant?: TabsVariant;
 }
 
-export function Tabs({
-  defaultValue = '',
-  value,
-  onChange,
-  children,
-  variant = 'line',
-}: TabsProps) {
-  const [internalValue, setInternalValue] = useState(defaultValue);
-  const baseId = useId();
-
-  const isControlled = value !== undefined;
-  const activeTab = isControlled ? value! : internalValue;
-
-  const setActiveTab = (next: string) => {
-    if (!isControlled) setInternalValue(next);
-    onChange?.(next);
-  };
-
+export function Tabs({ defaultValue, value, onChange, children, variant = 'line' }: TabsProps) {
   return (
-    <TabsContext.Provider value={{ activeTab, setActiveTab, variant, baseId }}>
-      <div className={[styles.tabs, styles[variant]].join(' ')}>{children}</div>
-    </TabsContext.Provider>
+    <AriaTabs
+      selectedKey={value}
+      defaultSelectedKey={defaultValue}
+      onSelectionChange={(key) => onChange?.(String(key))}
+      className={[styles.tabs, styles[variant]].join(' ')}
+      // Pass variant down via data attribute for child access
+      data-variant={variant}
+    >
+      {children}
+    </AriaTabs>
   );
 }
-
-// ─── TabList ──────────────────────────────────────────────────────────────────
 
 export interface TabListProps {
   children: ReactNode;
   'aria-label'?: string;
+  variant?: TabsVariant;
 }
 
-export function TabList({ children, 'aria-label': ariaLabel }: TabListProps) {
-  const { variant } = useTabsContext();
+export function TabList({ children, 'aria-label': ariaLabel, variant = 'line' }: TabListProps) {
   return (
-    <div
-      role="tablist"
+    <AriaTabList
       aria-label={ariaLabel}
       className={[styles.tabList, styles[`tabList_${variant}`]].join(' ')}
     >
       {children}
-    </div>
+    </AriaTabList>
   );
 }
-
-// ─── Tab ─────────────────────────────────────────────────────────────────────
 
 export interface TabProps {
   value: string;
   disabled?: boolean;
   children: ReactNode;
   icon?: ReactNode;
+  variant?: TabsVariant;
 }
 
-export function Tab({ value, disabled = false, children, icon }: TabProps) {
-  const { activeTab, setActiveTab, variant, baseId } = useTabsContext();
-  const isActive = activeTab === value;
-
-  const classes = [
-    styles.tab,
-    styles[`tab_${variant}`],
-    isActive ? styles[`tab_${variant}_active`] : '',
-    disabled ? styles.tab_disabled : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
-
+export function Tab({ value, disabled = false, children, icon, variant = 'line' }: TabProps) {
   return (
-    <button
-      role="tab"
-      id={`${baseId}-tab-${value}`}
-      aria-controls={`${baseId}-panel-${value}`}
-      aria-selected={isActive}
-      disabled={disabled}
-      className={classes}
-      onClick={() => !disabled && setActiveTab(value)}
-      type="button"
-      tabIndex={isActive ? 0 : -1}
+    <AriaTab
+      id={value}
+      isDisabled={disabled}
+      className={({ isSelected, isDisabled: isDis }) =>
+        [
+          styles.tab,
+          styles[`tab_${variant}`],
+          isSelected ? styles[`tab_${variant}_active`] : '',
+          isDis ? styles.tab_disabled : '',
+        ].filter(Boolean).join(' ')
+      }
     >
       {icon && <span className={styles.tabIcon}>{icon}</span>}
       {children}
-    </button>
+    </AriaTab>
   );
 }
-
-// ─── TabPanel ─────────────────────────────────────────────────────────────────
 
 export interface TabPanelProps {
   value: string;
@@ -131,17 +83,9 @@ export interface TabPanelProps {
 }
 
 export function TabPanel({ value, children }: TabPanelProps) {
-  const { activeTab, baseId } = useTabsContext();
-  if (activeTab !== value) return null;
-
   return (
-    <div
-      role="tabpanel"
-      id={`${baseId}-panel-${value}`}
-      aria-labelledby={`${baseId}-tab-${value}`}
-      className={styles.tabPanel}
-    >
+    <AriaTabPanel id={value} className={styles.tabPanel}>
       {children}
-    </div>
+    </AriaTabPanel>
   );
 }

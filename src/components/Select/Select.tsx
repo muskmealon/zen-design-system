@@ -1,4 +1,12 @@
-import { useState, useId, type ChangeEvent } from 'react';
+import {
+  Select as AriaSelect,
+  SelectValue,
+  Button as AriaButton,
+  Popover,
+  ListBox,
+  ListBoxItem,
+  Label,
+} from 'react-aria-components';
 import { ChevronDown } from 'lucide-react';
 import styles from './Select.module.css';
 
@@ -29,85 +37,77 @@ export function Select({
   value,
   defaultValue,
   onChange,
-  placeholder,
+  placeholder = 'Select an option',
   disabled = false,
   size = 'md',
   label,
   helperText,
   errorText,
-  id: idProp,
+  id,
 }: SelectProps) {
-  const generatedId = useId();
-  const id = idProp ?? generatedId;
-
-  const isControlled = value !== undefined;
-  const [internalValue, setInternalValue] = useState(defaultValue ?? '');
-  const selectValue = isControlled ? value : internalValue;
-
   const hasError = Boolean(errorText);
-
-  function handleChange(e: ChangeEvent<HTMLSelectElement>) {
-    const next = e.target.value;
-    if (!isControlled) {
-      setInternalValue(next);
-    }
-    onChange?.(next);
-  }
-
-  const wrapperClasses = [styles.wrapper, styles[size]].filter(Boolean).join(' ');
-
-  const selectClasses = [
-    styles.select,
-    hasError ? styles.selectError : '',
-    disabled ? styles.selectDisabled : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
-
   const iconSize = size === 'sm' ? 14 : size === 'md' ? 16 : 18;
 
   return (
-    <div className={wrapperClasses}>
-      {label && (
-        <label className={styles.label} htmlFor={id}>
-          {label}
-        </label>
-      )}
+    <AriaSelect
+      id={id}
+      selectedKey={value}
+      defaultSelectedKey={defaultValue}
+      onSelectionChange={(key) => onChange?.(String(key))}
+      isDisabled={disabled}
+      placeholder={placeholder}
+      className={[styles.wrapper, styles[size]].join(' ')}
+      aria-describedby={errorText || helperText ? `${id ?? ''}-helper` : undefined}
+      aria-invalid={hasError}
+    >
+      {label && <Label className={styles.label}>{label}</Label>}
       <div className={styles.selectWrapper}>
-        <select
-          id={id}
-          className={selectClasses}
-          value={selectValue}
-          onChange={handleChange}
-          disabled={disabled}
-          aria-invalid={hasError}
-          aria-describedby={errorText || helperText ? `${id}-helper` : undefined}
+        <AriaButton
+          className={[
+            styles.select,
+            hasError ? styles.selectError : '',
+            disabled ? styles.selectDisabled : '',
+          ].filter(Boolean).join(' ')}
         >
-          {placeholder && (
-            <option value="" disabled={!selectValue}>
-              {placeholder}
-            </option>
-          )}
-          {options.map((opt) => (
-            <option key={opt.value} value={opt.value} disabled={opt.disabled}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
-        <span className={styles.icon} aria-hidden="true">
-          <ChevronDown size={iconSize} />
-        </span>
+          <SelectValue />
+          <span className={styles.icon} aria-hidden="true">
+            <ChevronDown size={iconSize} />
+          </span>
+        </AriaButton>
       </div>
+
+      <Popover className={styles.popover}>
+        <ListBox className={styles.listbox}>
+          {options.map((opt) => (
+            <ListBoxItem
+              key={opt.value}
+              id={opt.value}
+              isDisabled={opt.disabled}
+              className={({ isDisabled, isFocused, isSelected }) =>
+                [
+                  styles.option,
+                  isDisabled ? styles.optionDisabled : '',
+                  isFocused ? styles.optionFocused : '',
+                  isSelected ? styles.optionSelected : '',
+                ].filter(Boolean).join(' ')
+              }
+            >
+              {opt.label}
+            </ListBoxItem>
+          ))}
+        </ListBox>
+      </Popover>
+
       {(errorText || helperText) && (
         <span
-          id={`${id}-helper`}
+          id={id ? `${id}-helper` : undefined}
           className={`${styles.helperText} ${hasError ? styles.helperTextError : ''}`}
           role={hasError ? 'alert' : undefined}
         >
           {errorText || helperText}
         </span>
       )}
-    </div>
+    </AriaSelect>
   );
 }
 

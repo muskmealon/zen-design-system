@@ -30,14 +30,20 @@ const meta: Meta<typeof Radio> = {
 export default meta;
 type Story = StoryObj<typeof Radio>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  render: (args) => (
+    <RadioGroup>
+      <Radio {...args} />
+    </RadioGroup>
+  ),
+};
 
 export const Selected: Story = {
-  args: {
-    checked: true,
-    label: 'Selected option',
-    value: 'selected',
-  },
+  render: () => (
+    <RadioGroup value="selected">
+      <Radio value="selected" label="Selected option" />
+    </RadioGroup>
+  ),
 };
 
 export const Disabled: Story = {
@@ -46,23 +52,27 @@ export const Disabled: Story = {
     label: 'Unavailable option',
     value: 'disabled',
   },
+  render: (args) => (
+    <RadioGroup>
+      <Radio {...args} />
+    </RadioGroup>
+  ),
 };
 
 export const DisabledSelected: Story = {
-  args: {
-    disabled: true,
-    checked: true,
-    label: 'Pre-selected and locked',
-    value: 'disabled-selected',
-  },
+  render: () => (
+    <RadioGroup value="disabled-selected">
+      <Radio value="disabled-selected" label="Pre-selected and locked" disabled />
+    </RadioGroup>
+  ),
 };
 
 export const SmallSize: Story = {
-  args: {
-    size: 'sm',
-    label: 'Small radio',
-    value: 'small',
-  },
+  render: () => (
+    <RadioGroup>
+      <Radio size="sm" value="small" label="Small radio" />
+    </RadioGroup>
+  ),
 };
 
 export const GroupVertical: Story = {

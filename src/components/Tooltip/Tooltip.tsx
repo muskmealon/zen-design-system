@@ -1,12 +1,9 @@
+import { type ReactNode } from 'react';
 import {
-  useState,
-  useRef,
-  useCallback,
-  type ReactNode,
-} from 'react';
+  TooltipTrigger,
+  Tooltip as AriaTooltip,
+} from 'react-aria-components';
 import styles from './Tooltip.module.css';
-
-// ─── Types ────────────────────────────────────────────────────────────────────
 
 export type TooltipPlacement = 'top' | 'bottom' | 'left' | 'right';
 
@@ -18,8 +15,6 @@ export interface TooltipProps {
   disabled?: boolean;
 }
 
-// ─── Component ────────────────────────────────────────────────────────────────
-
 export function Tooltip({
   content,
   children,
@@ -27,47 +22,17 @@ export function Tooltip({
   delay = 300,
   disabled = false,
 }: TooltipProps) {
-  const [visible, setVisible] = useState(false);
-  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const wrapperRef = useRef<HTMLSpanElement>(null);
-
-  const show = useCallback(() => {
-    if (disabled) return;
-    timerRef.current = setTimeout(() => setVisible(true), delay);
-  }, [disabled, delay]);
-
-  const hide = useCallback(() => {
-    if (timerRef.current) clearTimeout(timerRef.current);
-    setVisible(false);
-  }, []);
-
-  const tooltipClass = [
-    styles.tooltip,
-    styles[placement],
-    visible ? styles.visible : '',
-  ]
-    .filter(Boolean)
-    .join(' ');
-
   return (
-    <span
-      ref={wrapperRef}
-      className={styles.wrapper}
-      onMouseEnter={show}
-      onMouseLeave={hide}
-      onFocus={show}
-      onBlur={hide}
-    >
-      {children}
-      {!disabled && (
-        <span
-          role="tooltip"
-          className={tooltipClass}
-          aria-hidden={!visible}
-        >
-          {content}
-        </span>
-      )}
-    </span>
+    <TooltipTrigger delay={delay} isDisabled={disabled}>
+      {/* React Aria needs the trigger to be a focusable element */}
+      <span className={styles.wrapper}>{children}</span>
+      <AriaTooltip
+        placement={placement}
+        className={[styles.tooltip, styles[placement], styles.visible].join(' ')}
+        offset={10}
+      >
+        {content}
+      </AriaTooltip>
+    </TooltipTrigger>
   );
 }

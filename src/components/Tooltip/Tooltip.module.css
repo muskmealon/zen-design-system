@@ -7,7 +7,6 @@
 
 /* ─── Tooltip box ──────────────────────────────────────────────────────────── */
 .tooltip {
-  position: absolute;
   z-index: 1000;
   max-width: 240px;
   padding: var(--space-6) var(--space-10);
@@ -21,80 +20,32 @@
   white-space: normal;
   word-wrap: break-word;
   pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.15s ease;
-
-  /* Prevent layout shifts from width calculations */
+  opacity: 1;
   width: max-content;
+}
+
+/* React Aria mounts the tooltip only when open; use data attrs for fade */
+.tooltip[data-entering] {
+  animation: tooltipIn 0.15s ease forwards;
+}
+
+.tooltip[data-exiting] {
+  animation: tooltipOut 0.1s ease forwards;
+}
+
+@keyframes tooltipIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes tooltipOut {
+  from { opacity: 1; }
+  to   { opacity: 0; }
 }
 
 .tooltip.visible {
   opacity: 1;
 }
 
-/* ─── Arrow (::after) ──────────────────────────────────────────────────────── */
-.tooltip::after {
-  content: '';
-  position: absolute;
-  border: 6px solid transparent;
-}
-
-/* ─── Placement: top ───────────────────────────────────────────────────────── */
-.top {
-  bottom: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.top::after {
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border-top-color: var(--color-surface-dark);
-  border-bottom-width: 0;
-}
-
-/* ─── Placement: bottom ────────────────────────────────────────────────────── */
-.bottom {
-  top: calc(100% + 10px);
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.bottom::after {
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border-bottom-color: var(--color-surface-dark);
-  border-top-width: 0;
-}
-
-/* ─── Placement: left ──────────────────────────────────────────────────────── */
-.left {
-  right: calc(100% + 10px);
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.left::after {
-  left: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  border-left-color: var(--color-surface-dark);
-  border-right-width: 0;
-}
-
-/* ─── Placement: right ─────────────────────────────────────────────────────── */
-.right {
-  left: calc(100% + 10px);
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.right::after {
-  right: 100%;
-  top: 50%;
-  transform: translateY(-50%);
-  border-right-color: var(--color-surface-dark);
-  border-left-width: 0;
-}
+/* Placement classes are kept for reference but React Aria handles actual positioning */
+.top, .bottom, .left, .right {}
