@@ -1,3 +1,5 @@
+export { default as theme } from './theme/theme';
+
 export { Button } from './components/Button';
 export type { ButtonProps, ButtonVariant, ButtonSize } from './components/Button';
 

@@ -118,3 +118,50 @@
 .helperTextError {
   color: var(--color-text-error-bold);
 }
+
+/* ── Popover / ListBox ────────────────────────────────────── */
+.popover {
+  min-width: var(--trigger-width);
+  background: var(--color-surface-default);
+  border: 1px solid var(--color-border-medium);
+  border-radius: var(--radius-8);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  overflow: hidden;
+  outline: none;
+}
+
+.listbox {
+  padding: var(--space-4) 0;
+  outline: none;
+  max-height: 240px;
+  overflow-y: auto;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  padding: var(--space-8) var(--space-12);
+  font-family: var(--font-family-primary);
+  font-size: var(--font-action-a14-size);
+  font-weight: var(--font-weight-regular);
+  line-height: var(--font-action-a14-line-height);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  outline: none;
+  transition: background 120ms ease;
+}
+
+.optionFocused {
+  background: var(--color-surface-subtle);
+}
+
+.optionSelected {
+  background: var(--color-surface-brand-primary-subtle);
+  color: var(--color-text-brand-primary);
+  font-weight: var(--font-weight-medium);
+}
+
+.optionDisabled {
+  color: var(--color-text-disabled-bold);
+  cursor: not-allowed;
+}
