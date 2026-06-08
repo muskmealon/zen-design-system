@@ -1,5 +1,8 @@
 import type { Preview } from '@storybook/react-vite';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
 import '../src/tokens/tokens.css';
+import theme from '../src/theme/theme';
 
 const preview: Preview = {
   parameters: {
@@ -38,11 +41,14 @@ const preview: Preview = {
   },
   decorators: [
     (Story, context) => {
-      const theme = context.globals['theme'] as string;
+      const colorMode = context.globals['theme'] as string;
       return (
-        <div data-theme={theme === 'dark' ? 'dark' : undefined}>
-          <Story />
-        </div>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+          <div data-theme={colorMode === 'dark' ? 'dark' : undefined}>
+            <Story />
+          </div>
+        </ThemeProvider>
       );
     },
   ],

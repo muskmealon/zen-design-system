@@ -23,7 +23,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "tokens:build": "node sd.config.js"
   },
   "keywords": [
     "design-system",
@@ -56,7 +57,11 @@
     "vitest": "^4.1.7"
   },
   "dependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "@mui/material": "^9.1.0",
     "lucide-react": "^1.16.0",
-    "react-aria-components": "^1.17.0"
+    "react-aria-components": "^1.17.0",
+    "style-dictionary": "^5.4.4"
   }
 }

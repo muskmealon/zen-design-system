@@ -1,0 +1,42 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+:root {
+  --palette-primary-light: #a7d2d2;
+  --palette-primary-main: #377e7f;
+  --palette-primary-dark: #2f6e6f;
+  --palette-primary-contrast-text: #ffffff;
+  --palette-secondary-light: #bebceb;
+  --palette-secondary-main: #251e9f;
+  --palette-secondary-dark: #1d1872;
+  --palette-secondary-contrast-text: #ffffff;
+  --palette-error-light: #f8c6c2;
+  --palette-error-main: #cc2f24;
+  --palette-error-dark: #9c241c;
+  --palette-error-contrast-text: #ffffff;
+  --palette-warning-light: #ffe38e;
+  --palette-warning-main: #b86e00;
+  --palette-warning-dark: #804400;
+  --palette-warning-contrast-text: #ffffff;
+  --palette-success-light: #88d796;
+  --palette-success-main: #2e8a3d;
+  --palette-success-dark: #20602b;
+  --palette-success-contrast-text: #ffffff;
+  --palette-info-light: #94c5f9;
+  --palette-info-main: #0959ae;
+  --palette-info-dark: #063e79;
+  --palette-info-contrast-text: #ffffff;
+  --palette-text-primary: #36454f;
+  --palette-text-secondary: #748fa1;
+  --palette-text-disabled: #a1b1bc;
+  --palette-background-default: #ffffff;
+  --palette-background-paper: #ffffff;
+  --palette-divider: #ccd3d8;
+  --palette-action-hover: rgba(55, 126, 127, 0.08);
+  --palette-action-selected: rgba(55, 126, 127, 0.08);
+  --palette-action-focus: rgba(55, 126, 127, 0.12);
+  --palette-action-active: #36454f;
+  --palette-action-disabled: #a1b1bc;
+  --palette-action-disabled-background: #ccd3d8;
+}

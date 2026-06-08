@@ -1,0 +1,58 @@
+{
+  "palette": {
+    "primary": {
+      "light":        { "value": "#A7D2D2", "type": "color" },
+      "main":         { "value": "#377E7F", "type": "color" },
+      "dark":         { "value": "#2F6E6F", "type": "color" },
+      "contrastText": { "value": "#FFFFFF", "type": "color" }
+    },
+    "secondary": {
+      "light":        { "value": "#BEBCEB", "type": "color" },
+      "main":         { "value": "#251E9F", "type": "color" },
+      "dark":         { "value": "#1D1872", "type": "color" },
+      "contrastText": { "value": "#FFFFFF", "type": "color" }
+    },
+    "error": {
+      "light":        { "value": "#F8C6C2", "type": "color" },
+      "main":         { "value": "#CC2F24", "type": "color" },
+      "dark":         { "value": "#9C241C", "type": "color" },
+      "contrastText": { "value": "#FFFFFF", "type": "color" }
+    },
+    "warning": {
+      "light":        { "value": "#FFE38E", "type": "color" },
+      "main":         { "value": "#B86E00", "type": "color" },
+      "dark":         { "value": "#804400", "type": "color" },
+      "contrastText": { "value": "#FFFFFF", "type": "color" }
+    },
+    "success": {
+      "light":        { "value": "#88D796", "type": "color" },
+      "main":         { "value": "#2E8A3D", "type": "color" },
+      "dark":         { "value": "#20602B", "type": "color" },
+      "contrastText": { "value": "#FFFFFF", "type": "color" }
+    },
+    "info": {
+      "light":        { "value": "#94C5F9", "type": "color" },
+      "main":         { "value": "#0959AE", "type": "color" },
+      "dark":         { "value": "#063E79", "type": "color" },
+      "contrastText": { "value": "#FFFFFF", "type": "color" }
+    },
+    "text": {
+      "primary":   { "value": "#36454F", "type": "color" },
+      "secondary": { "value": "#748FA1", "type": "color" },
+      "disabled":  { "value": "#A1B1BC", "type": "color" }
+    },
+    "background": {
+      "default": { "value": "#FFFFFF", "type": "color" },
+      "paper":   { "value": "#FFFFFF", "type": "color" }
+    },
+    "divider": { "value": "#CCD3D8", "type": "color" },
+    "action": {
+      "hover":              { "value": "rgba(55, 126, 127, 0.08)", "type": "color" },
+      "selected":           { "value": "rgba(55, 126, 127, 0.08)", "type": "color" },
+      "focus":              { "value": "rgba(55, 126, 127, 0.12)", "type": "color" },
+      "active":             { "value": "#36454F",                  "type": "color" },
+      "disabled":           { "value": "#A1B1BC",                  "type": "color" },
+      "disabledBackground": { "value": "#CCD3D8",                  "type": "color" }
+    }
+  }
+}
